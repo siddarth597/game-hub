@@ -658,6 +658,7 @@ const Sidebar = () => {
       position="sticky"
       marginTop={2}
       top={5}
+      maxWidth={120}
     >
       <Typography variant="h5" component="div" fontWeight={900}>
         Genres
