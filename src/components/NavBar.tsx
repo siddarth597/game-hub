@@ -6,13 +6,13 @@ import Typography from "@mui/material/Typography";
 export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="transparent">
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
           gap={3}
-          padding={1}
+          paddingY={3}
         >
           <Typography
             variant="h4"
