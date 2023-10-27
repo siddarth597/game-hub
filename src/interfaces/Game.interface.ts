@@ -20,4 +20,5 @@ export default interface IGame {
   parent_platforms: {
     platform: { id: number; name: string; slug: string };
   }[];
+  description_raw: string;
 }

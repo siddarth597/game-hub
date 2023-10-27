@@ -1,3 +1,4 @@
+import AddIcon from "@mui/icons-material/Add";
 import {
   Badge,
   Button,
@@ -7,9 +8,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Platforms from "./Platforms";
+import { useNavigate } from "react-router-dom";
 import IGame from "../interfaces/Game.interface";
+import Platforms from "./Platforms";
 
 type Props = {
   game: IGame;
@@ -17,6 +18,8 @@ type Props = {
 };
 
 const GameCard = ({ game, view = "grid" }: Props) => {
+  const navigate = useNavigate();
+
   const badgeColor: "warning" | "error" | "success" = game?.metacritic
     ? game?.metacritic > 80
       ? "success"
@@ -37,7 +40,7 @@ const GameCard = ({ game, view = "grid" }: Props) => {
         ":hover": { transform: "scale(1.05)" },
       }}
       onClick={() => {
-        console.log(game.id);
+        navigate(`/${game.slug}`);
       }}
     >
       <CardMedia

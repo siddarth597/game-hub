@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import useGameQueryStore from "../state/GameQueryStore";
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const { setSearch, reset } = useGameQueryStore();
@@ -17,9 +18,13 @@ export default function NavBar() {
 
   const debouncedSearch = useDebounce(searchQuery, 500);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if (debouncedSearch) setSearch(debouncedSearch);
-    else setSearch(null);
+    if (debouncedSearch) {
+      setSearch(debouncedSearch);
+      navigate(`/`);
+    } else setSearch(null);
   }, [debouncedSearch]);
 
   return (

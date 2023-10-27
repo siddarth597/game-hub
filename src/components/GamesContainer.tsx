@@ -1,7 +1,6 @@
 import GridViewIcon from "@mui/icons-material/GridView";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import {
-  Box,
   Button,
   FormControl,
   Grid,
@@ -16,10 +15,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import useGames from "../hooks/useGames";
-import GameCard from "./GameCard";
-import GameCardSkeleton from "./GameCardSkeleton";
 import usePlatforms from "../hooks/usePlatforms";
 import useGameQueryStore from "../state/GameQueryStore";
+import GameCard from "./GameCard";
+import GameCardSkeleton from "./GameCardSkeleton";
 import GameHeading from "./GameHeading";
 
 const GamesContainer = () => {
@@ -50,7 +49,7 @@ const GamesContainer = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 5 }}>
+    <>
       <GameHeading />
       <Stack
         direction={{ xs: "column", md: "row" }}
@@ -73,9 +72,9 @@ const GamesContainer = () => {
               id="demo-simple-select"
               value={orderBy}
               label="Order By"
-              onChange={(event: SelectChangeEvent) =>
-                setOrder(event.target.value)
-              }
+              onChange={(event: SelectChangeEvent) => {
+                setOrder(event.target.value);
+              }}
             >
               <MenuItem value={"relevance"}>Relevance</MenuItem>
               <MenuItem value={"-released"}>Release Date</MenuItem>
@@ -169,7 +168,7 @@ const GamesContainer = () => {
           {isFetchingNextPage ? "Loading..." : "Load More"}
         </Button>
       )}
-    </Box>
+    </>
   );
 };
 export default GamesContainer;

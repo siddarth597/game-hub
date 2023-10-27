@@ -1,7 +1,7 @@
-import { Container, Stack } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Sidebar from "./components/Sidebar";
-import GamesContainer from "./components/GamesContainer";
 
 function App() {
   return (
@@ -11,7 +11,9 @@ function App() {
 
         <Stack direction="row" gap={5}>
           <Sidebar />
-          <GamesContainer />
+          <Box sx={{ flexGrow: 5 }}>
+            <Outlet />
+          </Box>
         </Stack>
       </Container>
     </>

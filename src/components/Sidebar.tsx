@@ -2,6 +2,7 @@ import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import useGenres from "../hooks/useGenres";
 import IGenre from "../interfaces/Genre.interface";
 import useGameQueryStore from "../state/GameQueryStore";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const { isError, isLoading, data } = useGenres();
@@ -43,6 +44,7 @@ export default Sidebar;
 const SidebarItem = ({ genre }: { genre: IGenre }) => {
   const { setGenre } = useGameQueryStore();
   const genreId = useGameQueryStore((s) => s.gameQuery.genreId);
+  const navigate = useNavigate();
 
   return (
     <Stack
@@ -52,6 +54,7 @@ const SidebarItem = ({ genre }: { genre: IGenre }) => {
       justifyContent="flex-start"
       onClick={() => {
         setGenre(genre.id);
+        navigate(`/?genre=${genre.id}`);
       }}
       sx={{ cursor: "pointer" }}
     >
