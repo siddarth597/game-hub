@@ -20,6 +20,7 @@ import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import usePlatforms from "../hooks/usePlatforms";
 import useGameQueryStore from "../state/GameQueryStore";
+import GameHeading from "./GameHeading";
 
 const GamesContainer = () => {
   const { setOrder, setPlatform } = useGameQueryStore();
@@ -50,10 +51,7 @@ const GamesContainer = () => {
 
   return (
     <Box sx={{ flexGrow: 5 }}>
-      <Typography variant="h2" component="div" fontWeight={900}>
-        New and Trending
-      </Typography>
-
+      <GameHeading />
       <Stack
         direction={{ xs: "column", md: "row" }}
         alignItems="center"
@@ -80,10 +78,10 @@ const GamesContainer = () => {
               }
             >
               <MenuItem value={"relevance"}>Relevance</MenuItem>
-              <MenuItem value={"released"}>Release Date</MenuItem>
-              <MenuItem value={"added"}>Date Added</MenuItem>
-              <MenuItem value={"rating"}>Average Rating</MenuItem>
-              <MenuItem value={"metacritic"}>Popularity</MenuItem>
+              <MenuItem value={"-released"}>Release Date</MenuItem>
+              <MenuItem value={"-added"}>Date Added</MenuItem>
+              <MenuItem value={"-rating"}>Average Rating</MenuItem>
+              <MenuItem value={"-metacritic"}>Popularity</MenuItem>
             </Select>
           </FormControl>
 
