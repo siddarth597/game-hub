@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 
 export default function NavBar() {
-  const { setSearch } = useGameQueryStore();
+  const { setSearch, reset } = useGameQueryStore();
   const search = useGameQueryStore((s) => s.gameQuery.search);
 
   // using state to debounce the search value for a reduced API calls
@@ -36,8 +36,9 @@ export default function NavBar() {
             variant="h4"
             component="div"
             fontWeight={900}
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, cursor: "pointer" }}
             letterSpacing={2}
+            onClick={() => reset()}
           >
             RAWG
           </Typography>
