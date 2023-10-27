@@ -1,4 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
+import IGenre from "../interfaces/Genre.interface";
+import { useState } from "react";
 
 const GENRES = [
   {
@@ -155,7 +157,48 @@ const GENRES = [
   },
 ];
 
+const SidebarItem = ({ genre }: { genre: IGenre }) => {
+  return (
+    <Stack
+      direction="row"
+      gap={1}
+      alignItems="center"
+      justifyContent="flex-start"
+    >
+      <img
+        src={genre.image_background}
+        alt={genre.name}
+        height="30px"
+        width="30px"
+      />
+      <Typography component="div" sx={{ fontSize: "1rem" }}>
+        {genre.name}
+      </Typography>
+    </Stack>
+  );
+};
+
+const SidebarItemSkeleton = () => {
+  return (
+    <Stack
+      direction="row"
+      gap={1}
+      alignItems="center"
+      justifyContent="flex-start"
+    >
+      <Skeleton variant="rounded" width={30} height={30} />
+      <Skeleton variant="rounded" width={90} height={30} />
+    </Stack>
+  );
+};
+
 const Sidebar = () => {
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
+
+  setInterval(() => {
+    setIsDataLoaded(true);
+  }, 2000);
+
   return (
     <Box
       sx={{
@@ -173,25 +216,10 @@ const Sidebar = () => {
       </Typography>
 
       <Stack gap={2} marginTop={2}>
-        {GENRES.map((genre) => (
-          <Stack
-            key={genre.id}
-            direction="row"
-            gap={1}
-            alignItems="center"
-            justifyContent="flex-start"
-          >
-            <img
-              src={genre.image_background}
-              alt={genre.name}
-              height="30px"
-              width="30px"
-            />
-            <Typography component="div" sx={{ fontSize: "1rem" }}>
-              {genre.name}
-            </Typography>
-          </Stack>
-        ))}
+        {GENRES.map((genre) => {
+          if (isDataLoaded) return <SidebarItem key={genre.id} genre={genre} />;
+          else return <SidebarItemSkeleton key={genre.id} />;
+        })}
       </Stack>
     </Box>
   );

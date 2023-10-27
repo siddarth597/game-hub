@@ -15,6 +15,7 @@ import ReorderIcon from "@mui/icons-material/Reorder";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useState } from "react";
 import GameCard from "./GameCard";
+import GameCardSkeleton from "./GameCardSkeleton";
 // import IGame from "../interfaces/Game.interface";
 
 const PARENT_PLATFROMS = [
@@ -9974,6 +9975,12 @@ const GamesContainer = () => {
   const [platform, setPlatform] = useState<string>("all");
   const [view, setView] = useState<"list" | "grid">("grid");
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
+
+  setInterval(() => {
+    setIsDataLoaded(true);
+  }, 2000);
+
   return (
     <Box sx={{ flexGrow: 5 }}>
       <Typography variant="h2" component="div" fontWeight={900}>
@@ -10054,8 +10061,13 @@ const GamesContainer = () => {
           marginTop={3}
           justifyContent="space-around"
         >
-          {GAMES.map((game) => {
+          {/* {GAMES.map((game) => {
             return <GameCard key={game.id} game={game} />;
+          })} */}
+
+          {GAMES.map((game) => {
+            if (isDataLoaded) return <GameCard key={game.id} game={game} />;
+            else return <GameCardSkeleton key={game.id} />;
           })}
         </Grid>
       )}

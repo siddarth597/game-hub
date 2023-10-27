@@ -31,6 +31,7 @@ const GameCard = (props: Record<string, any>) => {
         minWidth: 300,
         height: "min-content",
         cursor: "pointer",
+        borderRadius: "20px",
       }}
       onClick={() => {
         console.log(props.game.id);
