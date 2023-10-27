@@ -2,6 +2,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import {
   Box,
+  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -13,7 +14,7 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -28,7 +29,12 @@ const GamesContainer = () => {
     isError: isGamesError,
     isLoading: isGamesLoading,
     data: games,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
   } = useGames();
+
+  console.log(games);
 
   const { isError: isPlatformsError, data: platforms } = usePlatforms();
 
@@ -121,9 +127,13 @@ const GamesContainer = () => {
           justifyContent="space-around"
         >
           {isGamesLoading == false
-            ? games?.results.map((game) => {
-                return <GameCard key={game.id} game={game} />;
-              })
+            ? games?.pages.map((page, index) => (
+                <React.Fragment key={index}>
+                  {page?.results.map((game) => {
+                    return <GameCard key={game.id} game={game} view={view} />;
+                  })}
+                </React.Fragment>
+              ))
             : [...Array(20)].map((_num, i: number) => {
                 return <GameCardSkeleton key={i} />;
               })}
@@ -133,13 +143,23 @@ const GamesContainer = () => {
       {view === "list" && (
         <Stack direction="column" gap={5} marginTop={3} alignItems="center">
           {isGamesLoading == false
-            ? games?.results.map((game) => {
-                return <GameCard key={game.id} game={game} view={view} />;
-              })
+            ? games?.pages.map((page, index) => (
+                <React.Fragment key={index}>
+                  {page?.results.map((game) => {
+                    return <GameCard key={game.id} game={game} view={view} />;
+                  })}
+                </React.Fragment>
+              ))
             : [...Array(20)].map((_num, i: number) => {
                 return <GameCardSkeleton key={i} />;
               })}
         </Stack>
+      )}
+
+      {hasNextPage && (
+        <Button onClick={() => fetchNextPage()} sx={{ marginY: 3 }}>
+          {isFetchingNextPage ? "Loading..." : "Load More"}
+        </Button>
       )}
     </Box>
   );
