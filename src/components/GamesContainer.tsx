@@ -19,10 +19,13 @@ import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import usePlatforms from "../hooks/usePlatforms";
+import useGameQueryStore from "../state/GameQueryStore";
 
 const GamesContainer = () => {
-  const [orderBy, setOrderBy] = useState<string>("relevance");
-  const [platform, setPlatform] = useState<string>("all");
+  const { setOrder, setPlatform } = useGameQueryStore();
+  const platformId = useGameQueryStore((s) => s.gameQuery.platformId);
+  const orderBy = useGameQueryStore((s) => s.gameQuery.orderBy);
+
   const [view, setView] = useState<"list" | "grid">("grid");
 
   const {
@@ -33,8 +36,6 @@ const GamesContainer = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useGames();
-
-  console.log(games);
 
   const { isError: isPlatformsError, data: platforms } = usePlatforms();
 
@@ -59,8 +60,14 @@ const GamesContainer = () => {
         marginTop={2}
         gap={{ xs: 2, md: 0 }}
       >
-        <Stack direction={{ xs: "column", md: "row" }} gap={2}>
-          <FormControl sx={{ minWidth: 120 }}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          gap={2}
+          sx={{ width: { xs: "100%", md: "fit-content" } }}
+        >
+          <FormControl
+            sx={{ minWidth: 120, width: { xs: "100%", md: "fit-content" } }}
+          >
             <InputLabel id="demo-simple-select-label">Order By</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -68,7 +75,7 @@ const GamesContainer = () => {
               value={orderBy}
               label="Order By"
               onChange={(event: SelectChangeEvent) =>
-                setOrderBy(event.target.value)
+                setOrder(event.target.value)
               }
             >
               <MenuItem value={"relevance"}>Relevance</MenuItem>
@@ -79,20 +86,22 @@ const GamesContainer = () => {
             </Select>
           </FormControl>
 
-          <FormControl sx={{ minWidth: 120 }}>
+          <FormControl
+            sx={{ minWidth: 120, width: { xs: "100%", md: "fit-content" } }}
+          >
             <InputLabel id="parent_platform_label">Platform</InputLabel>
             <Select
               labelId="parent_platform_label"
               id="parent_platform"
-              value={platform}
+              value={`${platformId}`}
               label="Platform"
               onChange={(event: SelectChangeEvent) =>
-                setPlatform(event.target.value)
+                setPlatform(parseInt(event.target.value))
               }
             >
-              <MenuItem value={"all"}>All</MenuItem>
+              <MenuItem value={"0"}>All</MenuItem>
               {platforms?.results.map((p) => (
-                <MenuItem key={p.slug} value={p.slug}>
+                <MenuItem key={p.slug} value={p.id}>
                   {p.name}
                 </MenuItem>
               ))}

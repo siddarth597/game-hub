@@ -1,11 +1,11 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import useGenres from "../hooks/useGenres";
 import IGenre from "../interfaces/Genre.interface";
+import useGameQueryStore from "../state/GameQueryStore";
 
 const Sidebar = () => {
   const { isError, isLoading, data } = useGenres();
 
-  console.log(data);
   return (
     <Box
       sx={{
@@ -41,6 +41,9 @@ const Sidebar = () => {
 export default Sidebar;
 
 const SidebarItem = ({ genre }: { genre: IGenre }) => {
+  const { setGenre } = useGameQueryStore();
+  const genreId = useGameQueryStore((s) => s.gameQuery.genreId);
+
   return (
     <Stack
       direction="row"
@@ -48,7 +51,7 @@ const SidebarItem = ({ genre }: { genre: IGenre }) => {
       alignItems="center"
       justifyContent="flex-start"
       onClick={() => {
-        console.log(`selected genre id -> ${genre.id}`);
+        setGenre(genre.id);
       }}
       sx={{ cursor: "pointer" }}
     >
@@ -59,7 +62,11 @@ const SidebarItem = ({ genre }: { genre: IGenre }) => {
         width="30px"
         style={{ borderRadius: "5px" }}
       />
-      <Typography component="div" sx={{ fontSize: "1rem" }}>
+      <Typography
+        component="div"
+        sx={{ fontSize: "1rem" }}
+        fontWeight={genreId === genre.id ? 700 : 400}
+      >
         {genre.name}
       </Typography>
     </Stack>

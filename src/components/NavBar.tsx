@@ -2,8 +2,12 @@ import { Stack, TextField } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import useGameQueryStore from "../state/GameQueryStore";
 
 export default function NavBar() {
+  const { setSearch } = useGameQueryStore();
+  const searchQuery = useGameQueryStore((s) => s.gameQuery.search);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
@@ -29,6 +33,8 @@ export default function NavBar() {
             variant="outlined"
             fullWidth
             size="small"
+            value={searchQuery || ""}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </Stack>
       </AppBar>
