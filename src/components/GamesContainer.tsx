@@ -14,9 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import { IGameResponse } from "../interfaces/Game.interface";
+import apiClient from "../services/api-client";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 
@@ -688,11 +688,7 @@ const GamesContainer = () => {
   const [view, setView] = useState<"list" | "grid">("grid");
 
   const getGames = () =>
-    axios
-      .get<IGameResponse>(
-        "https://api.rawg.io/api/games?key=b946198f23334f8f9f37fcf4e2d939a6"
-      )
-      .then((res) => res.data);
+    apiClient.get<IGameResponse>("/games").then((res) => res.data);
 
   // Queries
   const { isError, isLoading, data } = useQuery({
