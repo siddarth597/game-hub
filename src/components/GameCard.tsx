@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Platforms from "./Platforms";
 // import IGame from "../interfaces/Game.interface";
 
 // type Props = {
@@ -41,7 +42,20 @@ const GameCard = (props: Record<string, any>) => {
         title={props.game.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div" fontWeight={600}>
+        <Platforms
+          platforms={props?.game?.parent_platforms.map(
+            (p: Record<string, any>) => {
+              return p?.platform?.slug;
+            }
+          )}
+        />
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          fontWeight={600}
+          marginTop={1}
+        >
           {props.game.name}
         </Typography>
         <Stack

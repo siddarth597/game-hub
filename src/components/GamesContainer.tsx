@@ -9971,7 +9971,7 @@ const GAMES = [
 
 const GamesContainer = () => {
   const [orderBy, setOrderBy] = useState<string>("relevance");
-  const [platform, setPlatform] = useState<string>("");
+  const [platform, setPlatform] = useState<string>("all");
   const [view, setView] = useState<"list" | "grid">("grid");
 
   return (
@@ -9988,7 +9988,7 @@ const GamesContainer = () => {
         gap={{ xs: 2, md: 0 }}
       >
         <Stack direction={{ xs: "column", md: "row" }} gap={2}>
-          <FormControl>
+          <FormControl sx={{ minWidth: 120 }}>
             <InputLabel id="demo-simple-select-label">Order By</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -10007,7 +10007,7 @@ const GamesContainer = () => {
             </Select>
           </FormControl>
 
-          <FormControl>
+          <FormControl sx={{ minWidth: 120 }}>
             <InputLabel id="parent_platform_label">Platform</InputLabel>
             <Select
               labelId="parent_platform_label"
@@ -10018,6 +10018,7 @@ const GamesContainer = () => {
                 setPlatform(event.target.value)
               }
             >
+              <MenuItem value={"all"}>All</MenuItem>
               {PARENT_PLATFROMS.map((p) => (
                 <MenuItem key={p.slug} value={p.slug}>
                   {p.name}
