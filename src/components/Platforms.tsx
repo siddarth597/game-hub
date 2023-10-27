@@ -59,7 +59,7 @@ const Platforms = ({ platforms }: { platforms: string[] }) => {
       alignItems="center"
       justifyContent="flex-start"
     >
-      {platforms.map((platform) => {
+      {platforms?.map((platform) => {
         return <PlatformIcon key={platform} platform={platform} />;
       })}
     </Stack>

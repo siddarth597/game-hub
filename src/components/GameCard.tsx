@@ -47,7 +47,7 @@ const GameCard = ({ game, view = "grid" }: Props) => {
       />
       <CardContent>
         <Platforms
-          platforms={game?.parent_platforms.map((p) => {
+          platforms={game?.parent_platforms?.map((p) => {
             return p?.platform?.slug;
           })}
         />

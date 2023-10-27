@@ -25,6 +25,7 @@ const GamesContainer = () => {
   const { setOrder, setPlatform } = useGameQueryStore();
   const platformId = useGameQueryStore((s) => s.gameQuery.platformId);
   const orderBy = useGameQueryStore((s) => s.gameQuery.orderBy);
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
 
   const [view, setView] = useState<"list" | "grid">("grid");
 
@@ -35,7 +36,7 @@ const GamesContainer = () => {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-  } = useGames();
+  } = useGames(gameQuery);
 
   const { isError: isPlatformsError, data: platforms } = usePlatforms();
 
