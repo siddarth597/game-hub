@@ -1,18 +1,11 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import IGenre, { IGenreResponse } from "../interfaces/Genre.interface";
-import apiClient from "../services/api-client";
+import useGenres from "../hooks/useGenres";
+import IGenre from "../interfaces/Genre.interface";
 
 const Sidebar = () => {
-  const getGenres = () =>
-    apiClient.get<IGenreResponse>("/genres").then((res) => res.data);
+  const { isError, isLoading, data } = useGenres();
 
-  // Queries
-  const { isError, isLoading, data } = useQuery({
-    queryKey: ["genres"],
-    queryFn: getGenres,
-  });
-
+  console.log(data);
   return (
     <Box
       sx={{

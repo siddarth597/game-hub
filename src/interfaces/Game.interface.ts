@@ -21,10 +21,3 @@ export default interface IGame {
     platform: { id: number; name: string; slug: string };
   }[];
 }
-
-export interface IGameResponse {
-  count: number;
-  next: string;
-  previous: string;
-  results: IGame[];
-}
