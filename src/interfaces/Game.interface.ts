@@ -19,5 +19,12 @@ export default interface IGame {
     id: number;
     image: string;
   }[];
-  parent_platforms: { platform: { id: number; name: string; slug: string } };
+  parent_platforms: { platform: { id: number; name: string; slug: string } }[];
+}
+
+export interface IGameResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: IGame[];
 }

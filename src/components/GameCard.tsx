@@ -9,17 +9,18 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Platforms from "./Platforms";
-// import IGame from "../interfaces/Game.interface";
+import IGame from "../interfaces/Game.interface";
 
-// type Props = {
-//   game: IGame;
-// };
+type Props = {
+  game: IGame;
+  view: "list" | "grid";
+};
 
-const GameCard = (props: Record<string, any>) => {
-  const badgeColor: "warning" | "error" | "success" = props?.game?.metacritic
-    ? props?.game?.metacritic > 80
+const GameCard = ({ game, view }: Props) => {
+  const badgeColor: "warning" | "error" | "success" = game?.metacritic
+    ? game?.metacritic > 80
       ? "success"
-      : props?.game?.metacritic > 50
+      : game?.metacritic > 50
       ? "warning"
       : "error"
     : "error";
@@ -27,7 +28,7 @@ const GameCard = (props: Record<string, any>) => {
   return (
     <Card
       sx={{
-        width: props.view === "list" ? "40vw" : 300,
+        width: view === "list" ? "40vw" : 300,
         minWidth: 300,
         height: "min-content",
         cursor: "pointer",
@@ -36,21 +37,19 @@ const GameCard = (props: Record<string, any>) => {
         ":hover": { transform: "scale(1.05)" },
       }}
       onClick={() => {
-        console.log(props.game.id);
+        console.log(game.id);
       }}
     >
       <CardMedia
-        sx={{ height: props.view === "list" ? "25vw" : 180, minHeight: 180 }}
-        image={props.game.background_image}
-        title={props.game.name}
+        sx={{ height: view === "list" ? "25vw" : 180, minHeight: 180 }}
+        image={game.background_image}
+        title={game.name}
       />
       <CardContent>
         <Platforms
-          platforms={props?.game?.parent_platforms.map(
-            (p: Record<string, any>) => {
-              return p?.platform?.slug;
-            }
-          )}
+          platforms={game?.parent_platforms.map((p) => {
+            return p?.platform?.slug;
+          })}
         />
         <Typography
           gutterBottom
@@ -59,7 +58,7 @@ const GameCard = (props: Record<string, any>) => {
           fontWeight={600}
           marginTop={1}
         >
-          {props.game.name}
+          {game.name}
         </Typography>
         <Stack
           direction="row"
@@ -67,7 +66,7 @@ const GameCard = (props: Record<string, any>) => {
           justifyContent="space-between"
         >
           <Badge
-            badgeContent={props.game.metacritic}
+            badgeContent={game.metacritic}
             color={badgeColor}
             sx={{ marginLeft: 1 }}
           />
@@ -77,7 +76,7 @@ const GameCard = (props: Record<string, any>) => {
             variant="outlined"
             startIcon={<AddIcon />}
           >
-            {props.game.ratings_count}
+            {game.ratings_count}
           </Button>
         </Stack>
       </CardContent>
