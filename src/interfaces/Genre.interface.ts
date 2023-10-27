@@ -4,3 +4,10 @@ export default interface IGenre {
   slug: string;
   image_background: string;
 }
+
+export interface IGenreResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: IGenre[];
+}

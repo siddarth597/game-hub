@@ -13,10 +13,10 @@ import IGame from "../interfaces/Game.interface";
 
 type Props = {
   game: IGame;
-  view: "list" | "grid";
+  view?: "list" | "grid";
 };
 
-const GameCard = ({ game, view }: Props) => {
+const GameCard = ({ game, view = "grid" }: Props) => {
   const badgeColor: "warning" | "error" | "success" = game?.metacritic
     ? game?.metacritic > 80
       ? "success"

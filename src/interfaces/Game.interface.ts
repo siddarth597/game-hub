@@ -6,10 +6,8 @@ export default interface IGame {
   background_image: string;
   rating: number;
   rating_top: number;
-
   ratings_count: number;
   reviews_text_count: number;
-
   metacritic: number;
   playtime: number;
   suggestions_count: number;
@@ -19,7 +17,9 @@ export default interface IGame {
     id: number;
     image: string;
   }[];
-  parent_platforms: { platform: { id: number; name: string; slug: string } }[];
+  parent_platforms: {
+    platform: { id: number; name: string; slug: string };
+  }[];
 }
 
 export interface IGameResponse {
