@@ -164,6 +164,10 @@ const SidebarItem = ({ genre }: { genre: IGenre }) => {
       gap={1}
       alignItems="center"
       justifyContent="flex-start"
+      onClick={() => {
+        console.log(`selected genre id -> ${genre.id}`);
+      }}
+      sx={{ cursor: "pointer" }}
     >
       <img
         src={genre.image_background}

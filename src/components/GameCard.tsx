@@ -32,6 +32,8 @@ const GameCard = (props: Record<string, any>) => {
         height: "min-content",
         cursor: "pointer",
         borderRadius: "20px",
+        transition: "all .2s",
+        ":hover": { transform: "scale(1.05)" },
       }}
       onClick={() => {
         console.log(props.game.id);
