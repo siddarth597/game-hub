@@ -5,7 +5,7 @@ interface GameQueryStore {
   gameQuery: IGameQuery;
   setGenre: (genreId: number) => void;
   setPlatform: (platformId: number) => void;
-  setSearch: (searchQuery: string) => void;
+  setSearch: (searchQuery: string | null) => void;
   setOrder: (orderBy: string) => void;
 }
 
@@ -37,7 +37,7 @@ const useGameQueryStore = create<GameQueryStore>((set) => ({
         platformId,
       },
     })),
-  setSearch: (searchQuery: string) =>
+  setSearch: (searchQuery: string | null) =>
     set(() => ({
       gameQuery: {
         search: searchQuery,

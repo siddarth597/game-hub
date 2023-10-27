@@ -3,10 +3,24 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useGameQueryStore from "../state/GameQueryStore";
+import { useEffect, useState } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 export default function NavBar() {
   const { setSearch } = useGameQueryStore();
-  const searchQuery = useGameQueryStore((s) => s.gameQuery.search);
+  const search = useGameQueryStore((s) => s.gameQuery.search);
+
+  // using state to debounce the search value for a reduced API calls
+  const [searchQuery, setSearchQuery] = useState<string | null | undefined>(
+    search
+  );
+
+  const debouncedSearch = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    if (debouncedSearch) setSearch(debouncedSearch);
+    else setSearch(null);
+  }, [debouncedSearch]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -34,7 +48,7 @@ export default function NavBar() {
             fullWidth
             size="small"
             value={searchQuery || ""}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </Stack>
       </AppBar>
