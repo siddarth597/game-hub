@@ -43,7 +43,10 @@ export default function NavBar() {
             fontWeight={900}
             sx={{ flexGrow: 1, cursor: "pointer" }}
             letterSpacing={2}
-            onClick={() => reset()}
+            onClick={() => {
+              reset();
+              navigate(`/`);
+            }}
           >
             RAWG
           </Typography>
