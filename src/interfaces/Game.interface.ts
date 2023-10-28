@@ -27,3 +27,8 @@ export default interface IGame {
   website_url: string;
   publishers: { id: number; name: string }[];
 }
+
+export interface IGameScreenshot {
+  id: number;
+  image: string;
+}
