@@ -1,3 +1,5 @@
+import IGenre from "./Genre.interface";
+
 export default interface IGame {
   id: number;
   slug: string;
@@ -21,4 +23,7 @@ export default interface IGame {
     platform: { id: number; name: string; slug: string };
   }[];
   description_raw: string;
+  genres: IGenre[];
+  website_url: string;
+  publishers: { id: number; name: string }[];
 }
